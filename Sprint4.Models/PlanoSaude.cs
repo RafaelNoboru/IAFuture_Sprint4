@@ -1,15 +1,44 @@
-﻿using Sprint4.Models.Enum;
+﻿using System.ComponentModel.DataAnnotations;
+using MongoDB.Bson;
+using MongoDB.Bson.Serialization.Attributes;
+using MongoDB.EntityFrameworkCore;
+using Sprint4.Models.Enum;
+using MongoDB.Bson.Serialization.IdGenerators;
 
 namespace Sprint4.Models
 {
+    [Collection("users")]
     public class PlanoSaude
     {
-        public int Id { get; set; }
+        [BsonId(IdGenerator = typeof(ObjectIdGenerator))]
+        public ObjectId Id { get; set; }
+
+        [BsonElement("nome")]
+        [Required(ErrorMessage = "O nome do plano de saúde é obrigatório.")]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "O nome do plano deve ter entre 3 e 100 caracteres.")]
         public string Nome { get; set; }
+
+        [BsonElement("preco")]
+        [Required(ErrorMessage = "O preço é obrigatório.")]
+        [Range(0.01, 1000000.00, ErrorMessage = "O preço deve ser um valor positivo.")]
         public decimal Preco { get; set; }
-        public TipoPlano TipoPlano { get; set; } 
+
+        [BsonElement("tipoPlano")]
+        [Required(ErrorMessage = "O tipo de plano é obrigatório.")]
+        [EnumDataType(typeof(TipoPlano), ErrorMessage = "Tipo de plano inválido.")]
+        public TipoPlano TipoPlano { get; set; }
+
+        [BsonElement("cobertura")]
+        [Required(ErrorMessage = "A cobertura é obrigatória.")]
+        [StringLength(500, ErrorMessage = "A cobertura não pode exceder 500 caracteres.")]
         public string Cobertura { get; set; }
+
+        [BsonElement("dataCriacao")]
+        [DataType(DataType.DateTime)]
         public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
+
+        [BsonElement("dataAtualizacao")]
+        [DataType(DataType.DateTime)]
         public DateTime? DataAtualizacao { get; set; }
     }
 }
