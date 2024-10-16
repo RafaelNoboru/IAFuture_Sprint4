@@ -18,28 +18,16 @@ namespace Sprint4.Database.Migrations
                     Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
                     Nome = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false),
+                    Usuario = table.Column<string>(type: "NVARCHAR2(50)", maxLength: 50, nullable: false),
                     Idade = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     Sexo = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Profissao = table.Column<string>(type: "NVARCHAR2(50)", maxLength: 50, nullable: false),
-                    EstadoSaude = table.Column<string>(type: "NVARCHAR2(50)", maxLength: 50, nullable: false)
+                    EstadoSaude = table.Column<string>(type: "NVARCHAR2(50)", maxLength: 50, nullable: false),
+                    SenhaHash = table.Column<string>(type: "NVARCHAR2(100)", maxLength: 100, nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_iafuture_csharp_clientes", x => x.Id);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "iafuture_csharp_login",
-                columns: table => new
-                {
-                    Id = table.Column<int>(type: "NUMBER(10)", nullable: false)
-                        .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    Username = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_iafuture_csharp_login", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -101,9 +89,6 @@ namespace Sprint4.Database.Migrations
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropTable(
-                name: "iafuture_csharp_login");
-
             migrationBuilder.DropTable(
                 name: "iafuture_csharp_recomendacoes");
 

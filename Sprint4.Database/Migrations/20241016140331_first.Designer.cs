@@ -12,7 +12,7 @@ using Sprint4.Database;
 namespace Sprint4.Database.Migrations
 {
     [DbContext(typeof(OracleDbContext))]
-    [Migration("20241016114505_first")]
+    [Migration("20241016140331_first")]
     partial class first
     {
         /// <inheritdoc />
@@ -51,34 +51,23 @@ namespace Sprint4.Database.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("NVARCHAR2(50)");
 
+                    b.Property<string>("SenhaHash")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("NVARCHAR2(100)");
+
                     b.Property<string>("Sexo")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<string>("Usuario")
+                        .IsRequired()
+                        .HasMaxLength(50)
+                        .HasColumnType("NVARCHAR2(50)");
+
                     b.HasKey("Id");
 
                     b.ToTable("iafuture_csharp_clientes");
-                });
-
-            modelBuilder.Entity("Sprint4.Models.Login", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("NUMBER(10)");
-
-                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("iafuture_csharp_login");
                 });
 
             modelBuilder.Entity("Sprint4.Models.PlanoSaude", b =>

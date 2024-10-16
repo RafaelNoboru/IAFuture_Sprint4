@@ -28,7 +28,6 @@ namespace Sprint4.Extensions
         public static IServiceCollection AddRepositories(this IServiceCollection services)
         {
             services.AddScoped<IRepository<Cliente>, MongoDbRepository<Cliente>>();
-            services.AddScoped<IRepository<Login>, MongoDbRepository<Login>>();
             services.AddScoped<IRepository<PlanoSaude>, MongoDbRepository<PlanoSaude>>();
             services.AddScoped<IRepository<RecomendacaoPlanoSaude>, MongoDbRepository<RecomendacaoPlanoSaude>>();
 
