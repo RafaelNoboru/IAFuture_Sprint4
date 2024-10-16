@@ -5,7 +5,6 @@ using Sprint4.Database;
 using Sprint4.Models;
 using Sprint4.Repository;
 using Sprint4.Repository.Interface;
-using System.Reflection;
 
 namespace Sprint4.Extensions
 {
@@ -13,6 +12,11 @@ namespace Sprint4.Extensions
     {
         public static IServiceCollection AddDbContexts(this IServiceCollection services, APPConfiguration configuration)
         {
+            services.AddDbContext<OracleDbContext>(options =>
+            {
+                options.UseOracle(configuration.OracleDatabase.Connection);
+            });
+
             services.AddDbContext<MongoDbContext>(options =>
             {
                 options.UseMongoDB(configuration.ConnectionStrings.RM99948, "rafaelnoboru");
@@ -77,6 +81,7 @@ namespace Sprint4.Extensions
         public static IServiceCollection AddHealthCheck(this IServiceCollection services, APPConfiguration configuration)
         {
             services.AddHealthChecks()
+                .AddOracle(configuration.OracleDatabase.Connection, name: configuration.OracleDatabase.Name)
                 .AddMongoDb(configuration.ConnectionStrings.RM99948, name: "MONGODB");
 
             return services;
