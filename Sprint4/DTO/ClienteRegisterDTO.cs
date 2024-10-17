@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Sprint4.Models.Enum;
+using System.ComponentModel.DataAnnotations;
 
 namespace Sprint4.Dtos
 {
@@ -17,16 +18,16 @@ namespace Sprint4.Dtos
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "O sexo é obrigatório.")]
-        [RegularExpression("^(Masculino|Feminino|Outro)$", ErrorMessage = "Sexo deve ser 'Masculino', 'Feminino' ou 'Outro'.")]
-        public string Sexo { get; set; }
+        [EnumDataType(typeof(Sexo), ErrorMessage = "Tipo de sexo inválido.")]
+        public Sexo Sexo { get; set; }
 
         [Required(ErrorMessage = "A profissão é obrigatória.")]
         [StringLength(50, ErrorMessage = "A profissão não pode exceder 50 caracteres.")]
         public string Profissao { get; set; }
 
         [Required(ErrorMessage = "O estado de saúde é obrigatório.")]
-        [StringLength(50, ErrorMessage = "O estado de saúde não pode exceder 50 caracteres.")]
-        public string EstadoSaude { get; set; }
+        [EnumDataType(typeof(EstadoSaude), ErrorMessage = "Tipo de estado de saúde inválido.")]
+        public EstadoSaude EstadoSaude { get; set; }
 
         [Required(ErrorMessage = "A senha é obrigatória.")]
         [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]

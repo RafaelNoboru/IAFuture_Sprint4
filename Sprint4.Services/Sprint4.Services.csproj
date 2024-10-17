@@ -12,6 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Sprint4.ML\Sprint4.ML.csproj" />
     <ProjectReference Include="..\Sprint4.Models\Sprint4.Models.csproj" />
   </ItemGroup>
 

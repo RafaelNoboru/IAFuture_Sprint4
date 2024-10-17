@@ -36,12 +36,8 @@ namespace Sprint4.Models
         [StringLength(500, ErrorMessage = "A cobertura não pode exceder 500 caracteres.")]
         public string Cobertura { get; set; }
 
-        //[BsonElement("dataCriacao")]
-        [DataType(DataType.DateTime)]
-        public DateTime DataCriacao { get; set; } = DateTime.UtcNow;
-
-        //[BsonElement("dataAtualizacao")]
-        [DataType(DataType.DateTime)]
-        public DateTime? DataAtualizacao { get; set; }
+        [Required(ErrorMessage = "O público alvo é obrigatório.")]
+        [EnumDataType(typeof(PublicoAlvo), ErrorMessage = "Tipo de público inválido.")]
+        public PublicoAlvo PublicoAlvo { get; set; }  
     }
 }

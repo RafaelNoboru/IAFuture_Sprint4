@@ -7,8 +7,7 @@ namespace Sprint4.Database
     {
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<PlanoSaude> Planos { get; set; }
-        public DbSet<RecomendacaoPlanoSaude> Recomendacoes { get; set; }
-        
+
         public OracleDbContext(DbContextOptions<OracleDbContext> options) : base(options)
         {
 
