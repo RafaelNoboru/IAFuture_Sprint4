@@ -34,8 +34,4 @@
     <ProjectReference Include="..\Sprint4.Services\Sprint4.Services.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Modelos\" />
-  </ItemGroup>
-
 </Project>

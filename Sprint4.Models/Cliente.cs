@@ -33,8 +33,7 @@ namespace Sprint4.Models
 
             //[BsonElement("sexo")]
             [Required(ErrorMessage = "O sexo é obrigatório.")]
-            [EnumDataType(typeof(Sexo), ErrorMessage = "Tipo de sexo inválido.")]
-            public Sexo Sexo { get; set; }
+            public string Sexo { get; set; }
 
             //[BsonElement("profissao")]
             [Required(ErrorMessage = "A profissão é obrigatória.")]
@@ -43,8 +42,7 @@ namespace Sprint4.Models
 
             //[BsonElement("estadoSaude")]
             [Required(ErrorMessage = "O estado de saúde é obrigatório.")]
-            [EnumDataType(typeof(EstadoSaude), ErrorMessage = "Tipo de estado de saúde inválido.")]
-            public EstadoSaude EstadoSaude { get; set; }
+            public string EstadoSaude { get; set; }
 
             [Required(ErrorMessage = "A senha é obrigatória.")]
             [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]

@@ -2,29 +2,16 @@
 using Microsoft.OpenApi.Models;
 using Sprint4.Configuration;
 using Sprint4.Database;
-using Sprint4.ML;
 using Sprint4.Models;
 using Sprint4.Repository;
 using Sprint4.Repository.Interface;
-using Sprint4.Services;
 using System.ComponentModel.Design;
 using System.Configuration;
 
 namespace Sprint4.Extensions
 {
     public static class ServiceCollectionsExtends
-    {
-        public static IServiceCollection AddServices(this IServiceCollection services)
-        {
-            services.Configure<MLConfig>(options =>
-            {
-                options.CaminhoModelo = "C:/Users/labsfiap/source/repos/IAFuture_Sprint4/Sprint4/Modelos/modelo.zip"; ; 
-            });
-
-            services.AddSingleton<PredictionService>();
-
-            return services;
-        }
+    { 
         public static IServiceCollection AddDbContexts(this IServiceCollection services, APPConfiguration configuration)
         {
             services.AddDbContext<OracleDbContext>(options =>

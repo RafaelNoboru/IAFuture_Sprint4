@@ -21,16 +21,14 @@ namespace Sprint4.Dtos
         public int Idade { get; set; }
 
         [Required(ErrorMessage = "O sexo é obrigatório.")]
-        [EnumDataType(typeof(Sexo), ErrorMessage = "Tipo de sexo inválido.")]
-        public Sexo Sexo { get; set; }
+        public string Sexo { get; set; }
 
         [Required(ErrorMessage = "A profissão é obrigatória.")]
         [StringLength(50, ErrorMessage = "A profissão não pode exceder 50 caracteres.")]
         public string Profissao { get; set; }
 
         [Required(ErrorMessage = "O estado de saúde é obrigatório.")]
-        [EnumDataType(typeof(EstadoSaude), ErrorMessage = "Tipo de estado de saúde inválido.")]
-        public EstadoSaude EstadoSaude { get; set; }
+        public string EstadoSaude { get; set; }
 
         [StringLength(100, MinimumLength = 6, ErrorMessage = "A senha deve ter pelo menos 6 caracteres.")]
         public string Senha { get; set; }

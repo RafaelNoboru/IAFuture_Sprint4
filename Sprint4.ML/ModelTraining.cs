@@ -1,48 +1,28 @@
-﻿using Microsoft.Extensions.Options;
-using Microsoft.ML;
+﻿using Microsoft.ML;
 using Sprint4.Models;
-using System;
-using System.Collections.Generic;
-using System.IO;
 
-namespace Sprint4.ML
+public static class ModelTraining
 {
-    public class ModelTraining
+    public static void TreinarModelo(string caminhoModelo)
     {
-        private readonly MLContext _mlContext;
-        private readonly string _caminhoModelo;
+        var mlContext = new MLContext();
 
-        public ModelTraining(IOptions<MLConfig> config)
-        {
-            _mlContext = new MLContext();   
-            _caminhoModelo = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Modelos", "modelo.zip");
-        }
-        public static void TreinarModelo(string caminhoModelo)
-        {
-            try
-            {
-                var mlContext = new MLContext();
-                var dados   = new List<ClientePlanoData>
-                {
-                    new ClientePlanoData { Idade = 30, Sexo = Models.Enum.Sexo.Masculino, Profissao = "Engenheiro", EstadoSaude = Models.Enum.EstadoSaude.Saudavel, RendaMensal = 5000, PlanoRecomendado = "Plano A" },
-            
-                };
+        var dataPath = "D:\\Sprint4\\Sprint4\\Dados\\clientes_treino.csv";
+        IDataView dataView = mlContext.Data.LoadFromTextFile<ClientePlanoData>(
+            dataPath, hasHeader: true, separatorChar: ',');
 
-                var dataView = mlContext.Data.LoadFromEnumerable(dados);
+        var pipeline = mlContext.Transforms.Conversion
+            .MapValueToKey("PlanoEscolhido")
+            .Append(mlContext.Transforms.Categorical.OneHotEncoding("EstadoCivil"))
+            .Append(mlContext.Transforms.Categorical.OneHotEncoding("Cidade"))
+            .Append(mlContext.Transforms.Concatenate("Features",
+                "Idade", "NumeroConsultas", "Internacoes", "EstadoCivil", "Cidade"))
+            .Append(mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("PlanoEscolhido", "Features"))
+            .Append(mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
 
-                var pipeline = mlContext.Transforms.Conversion.MapValueToKey("PlanoRecomendado")
-                    .Append(mlContext.Transforms.Concatenate("Features", "Idade", "RendaMensal"))
-                    .Append(mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy("PlanoRecomendado", "Features"));
+        var model = pipeline.Fit(dataView);
 
-                var modelo = pipeline.Fit(dataView);
-
-                mlContext.Model.Save(modelo, dataView.Schema, caminhoModelo);
-                Console.WriteLine("Modelo treinado e salvo em: " + caminhoModelo);
-            }
-            catch (Exception ex)
-            {
-                Console.WriteLine("Erro ao treinar o modelo: " + ex.Message);
-            }
-        }
+        mlContext.Model.Save(model, dataView.Schema, caminhoModelo);
+        Console.WriteLine($"Modelo salvo em: {caminhoModelo}");
     }
 }

@@ -1,60 +1,49 @@
 ﻿using Microsoft.ML;
-using Microsoft.Extensions.Options;
 using Sprint4.Models;
-using System.IO;
-using Sprint4.ML;
 
-namespace Sprint4.Services
+public class PredictionService
 {
-    public class PredictionService
+    private readonly MLContext _mlContext;
+    private ITransformer _modelo;
+
+    public PredictionService()
     {
-        private readonly MLContext _mlContext;
-        private readonly string _caminhoModelo;
-        private ITransformer _modelo;
-
-        public string CaminhoModelo => _caminhoModelo;
-
-        public PredictionService(IOptions<MLConfig> config)
-        {
-            _mlContext = new MLContext();
-            _caminhoModelo = config.Value.CaminhoModelo;
-            CarregarModelo();
-        }
-
-        private void CarregarModelo()
-        {
-            if (!File.Exists(_caminhoModelo))
-            {
-                throw new FileNotFoundException($"Modelo não encontrado em: {_caminhoModelo}");
-            }
-
-            using (var stream = new FileStream(_caminhoModelo, FileMode.Open, FileAccess.Read, FileShare.Read))
-            {
-                _modelo = _mlContext.Model.Load(stream, out var schema);
-            }
-
-            Console.WriteLine("Modelo carregado com sucesso!");
-        }
-
-        // Método para prever o plano de saúde com base nos dados do cliente
-        public string Predict(ClientePlanoData cliente)
-        {
-            // Criação de um novo DataView a partir dos dados do cliente
-            var dadosCliente = new[] { cliente };
-            var dataViewCliente = _mlContext.Data.LoadFromEnumerable(dadosCliente);
-
-            // Fazer previsões usando o modelo carregado
-            var previsao = _modelo.Transform(dataViewCliente);
-
-            // Converter a previsão em um resultado útil
-            var resultado = _mlContext.Data.CreateEnumerable<PredictedPlano>(previsao, reuseRowObject: false).FirstOrDefault();
-            return resultado?.PlanoRecomendado ?? "Plano não encontrado";
-        }
+        _mlContext = new MLContext();
+        TreinarModelo();
     }
 
-    // Classe para os dados que representam a previsão
-    public class PredictedPlano
+    private void TreinarModelo()
     {
-        public string PlanoRecomendado { get; set; }
+        var dadosTreinamento = new List<ClientePlanoData>
+        {
+            new ClientePlanoData { Idade = 25, NumeroConsultas = 3, Internacoes = 0, EstadoCivil = "Solteiro", Cidade = "SP", Plano = "Bronze" },
+            new ClientePlanoData { Idade = 50, NumeroConsultas = 10, Internacoes = 2, EstadoCivil = "Casado", Cidade = "RJ", Plano = "Ouro" },
+            new ClientePlanoData { Idade = 35, NumeroConsultas = 5, Internacoes = 1, EstadoCivil = "Casado", Cidade = "SP", Plano = "Prata" }
+        };
+
+        var dataView = _mlContext.Data.LoadFromEnumerable(dadosTreinamento);
+
+        var pipeline = _mlContext.Transforms.Conversion.MapValueToKey("Label", nameof(ClientePlanoData.Plano))
+            .Append(_mlContext.Transforms.Categorical.OneHotEncoding("EstadoCivil"))
+            .Append(_mlContext.Transforms.Categorical.OneHotEncoding("Cidade"))
+            .Append(_mlContext.Transforms.Concatenate("Features", "Idade", "NumeroConsultas", "Internacoes", "EstadoCivil", "Cidade"))
+            .Append(_mlContext.MulticlassClassification.Trainers.SdcaMaximumEntropy())
+            .Append(_mlContext.Transforms.Conversion.MapKeyToValue("PredictedLabel"));
+
+        _modelo = pipeline.Fit(dataView);
+        Console.WriteLine("[Info] Modelo treinado com sucesso.");
     }
+
+    public PlanoSaudePrediction Predict(ClientePlanoData cliente)
+    {
+        var data = new[] { cliente };
+        var inputData = _mlContext.Data.LoadFromEnumerable(data);
+
+        var prediction = _modelo.Transform(inputData);
+
+        var resultados = _mlContext.Data.CreateEnumerable<PlanoSaudePrediction>(prediction, reuseRowObject: false).FirstOrDefault();
+
+        return resultados;
+    }
+
 }

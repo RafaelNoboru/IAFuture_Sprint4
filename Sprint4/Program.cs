@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Microsoft.Build.Framework;
+using Sprint4.Models;
 
 namespace Sprint4
 {
@@ -52,8 +53,9 @@ namespace Sprint4
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
+            builder.Services.AddSingleton<PredictionService>();
 
-            builder.Services.AddServices();
+            builder.Services.AddControllers();
 
             builder.Services.AddAuthorization();
 
