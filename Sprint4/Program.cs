@@ -72,6 +72,7 @@ namespace Sprint4
 
 
             var app = builder.Build();
+
             
             app.UseRouting();
 
@@ -90,12 +91,11 @@ namespace Sprint4
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
-                endpoints.MapHealthChecks("/health-check", new HealthCheckOptions()
+                endpoints.MapHealthChecks("/health", new HealthCheckOptions
                 {
-                    Predicate = _ => true,
-                    ResponseWriter = HealthCheckExtensions.WriteResponse
+                    ResponseWriter = HealthCheckExtensions.WriteResponse // Seu método personalizado
                 });
+                endpoints.MapControllers();
             });
 
             app.Run();
