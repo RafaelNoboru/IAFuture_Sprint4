@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using Microsoft.Build.Framework;
-using Sprint4.Models;
+using Stripe;
+using Sprint4.Services;
 
 namespace Sprint4
 {
@@ -15,6 +15,8 @@ namespace Sprint4
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
+
+            StripeConfiguration.ApiKey = "stripe_api_key";
 
             IConfiguration configuration = builder.Configuration;
 
@@ -54,6 +56,7 @@ namespace Sprint4
                 };
             });
             builder.Services.AddSingleton<PredictionService>();
+            builder.Services.AddSingleton<StripeService>();
 
             builder.Services.AddControllers();
 
