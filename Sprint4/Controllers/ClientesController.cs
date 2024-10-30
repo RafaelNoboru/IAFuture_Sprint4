@@ -35,6 +35,16 @@ namespace Sprint4.Controllers
             if (_context.Clientes.Count(c => c.Usuario == clienteDto.Usuario) > 0)
                 return BadRequest("Já existe um cliente com esse username.");
 
+            if (!ModelState.IsValid)
+            {
+                
+                foreach (var error in ModelState.Values.SelectMany(v => v.Errors))
+                {
+                    Console.WriteLine(error.ErrorMessage); 
+                }
+                return BadRequest(ModelState);
+            }
+
             string senhaHash = BCrypt.Net.BCrypt.HashPassword(clienteDto.Senha);
 
             var cliente = new Cliente
