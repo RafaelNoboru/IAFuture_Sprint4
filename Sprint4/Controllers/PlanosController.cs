@@ -70,7 +70,6 @@ namespace Sprint4.Controllers
         }
 
         // POST: api/Planos
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<PlanoSaude>> PostPlanoSaude(PlanoSaude planoSaude)
         {
@@ -79,6 +78,7 @@ namespace Sprint4.Controllers
 
             return CreatedAtAction("GetPlanoSaude", new { id = planoSaude.Id }, planoSaude);
         }
+
 
         // DELETE: api/Planos/5
         [HttpDelete("{id}")]
