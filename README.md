@@ -1,6 +1,6 @@
 # IaFuture
 
-API do projeto IaFuture - Software que controla resultados de análises feitas por IA
+API do projeto IaFuture - Software que controla resultados de análises feitas por IA para empresas que fornecem convênios médicos
 
 # Representantes 
 
