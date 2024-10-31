@@ -66,6 +66,6 @@ Foi adotado a abordagem monolítica para a aplicação pelos seguintes motivos:
     "preco": 299.99,
     "tipoPlano": "Basico",
     "cobertura": "Cobertura completa para consultas, exames e internações.",
-    "publicoAlvo": "Individuais"}
+    "publicoAlvo": "Individuais" }
 
 	
