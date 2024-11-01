@@ -41,6 +41,7 @@ Foi adotado a abordagem monolítica para a aplicação pelos seguintes motivos:
 - Lembrar de alterar as informações do banco de dados no "appsettings.json" de acordo com seus dados
 - Executar o projeto no VS Code ou outra IDE para linguagem C# e projeto API Web Core
 - Caso queira verificar a saúde da aplicação, acesse com https://localhost:{port}/health
+- Para execução do Machine Learning, dentro da IDE, abra dentro da Biblioteca de Classes do MLModel o arquivo "MlModel.mbconfig" e abrirá a interface do ModelBuilder e na parte "Avaliar" é possível experimentar o modelo treinado
 - Ao executar, uma página web do Swagger irá abrir
 - No Swagger, teremos o CRUD de todas as classes
 - Necessário antes de utilizar os endpoints de /api/Clientes, em "Authorize" colocar seu Token para estar autenticado e fazer o CRUD
