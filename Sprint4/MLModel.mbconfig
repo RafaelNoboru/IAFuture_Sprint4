@@ -1,0 +1,283 @@
+﻿{
+  "Scenario": "Classification",
+  "DataSource": {
+    "Version": 3,
+    "EscapeCharacter": "\"",
+    "ReadMultiLines": false,
+    "KeepDiacritics": false,
+    "KeepPunctuations": false,
+    "AllowQuoting": false,
+    "Type": "TabularFile",
+    "FilePath": "C:\\Users\\T-GAMER\\OneDrive\\Área de Trabalho\\dados.csv",
+    "Delimiter": ",",
+    "DecimalMarker": ".",
+    "HasHeader": true,
+    "ColumnProperties": [
+      {
+        "ColumnName": "Idade",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "NumeroConsultas",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Internacoes",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "Single",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "EstadoCivil",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Cidade",
+        "ColumnPurpose": "Feature",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      },
+      {
+        "ColumnName": "Plano",
+        "ColumnPurpose": "Label",
+        "ColumnDataFormat": "String",
+        "IsCategorical": false,
+        "Type": "Column",
+        "Version": 5
+      }
+    ]
+  },
+  "Environment": {
+    "Type": "LocalCPU",
+    "Version": 1
+  },
+  "RunHistory": {
+    "Version": 3,
+    "Type": "Result",
+    "Trials": [
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "SdcaMaximumEntropyMulti",
+        "Score": 0.2,
+        "RuntimeInSeconds": 13.839,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e4 * e10 * e12",
+          "e0": {
+            "OutputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ],
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ]
+          },
+          "e1": {
+            "InputColumnName": "EstadoCivil",
+            "OutputColumnName": "EstadoCivil"
+          },
+          "e10": {
+            "L1Regularization": 1.0,
+            "L2Regularization": 0.1,
+            "LabelColumnName": "Plano",
+            "FeatureColumnName": "Features"
+          },
+          "e12": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnName": "Cidade",
+            "OutputColumnName": "Cidade"
+          },
+          "e3": {
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes",
+              "EstadoCivil",
+              "Cidade"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "OutputColumnName": "Plano",
+            "InputColumnName": "Plano",
+            "AddKeyValueAnnotationsAsText": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeOva",
+        "Score": 0.1,
+        "RuntimeInSeconds": 0.656,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e4 * e5 * e12",
+          "e0": {
+            "OutputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ],
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ]
+          },
+          "e1": {
+            "InputColumnName": "EstadoCivil",
+            "OutputColumnName": "EstadoCivil"
+          },
+          "e12": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnName": "Cidade",
+            "OutputColumnName": "Cidade"
+          },
+          "e3": {
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes",
+              "EstadoCivil",
+              "Cidade"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "OutputColumnName": "Plano",
+            "InputColumnName": "Plano",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e5": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 20,
+            "NumberOfTrees": 4,
+            "MaximumBinCountPerFeature": 254,
+            "FeatureFraction": 1.0,
+            "LearningRate": 0.099999999999999978,
+            "LabelColumnName": "Plano",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      },
+      {
+        "Version": 1,
+        "Type": "Trial",
+        "TrainerName": "FastTreeOva",
+        "Score": 0.1,
+        "RuntimeInSeconds": 0.53,
+        "Parameter": {
+          "_SCHEMA_": "e0 * e1 * e2 * e3 * e4 * e5 * e12",
+          "e0": {
+            "OutputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ],
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes"
+            ]
+          },
+          "e1": {
+            "InputColumnName": "EstadoCivil",
+            "OutputColumnName": "EstadoCivil"
+          },
+          "e12": {
+            "OutputColumnName": "PredictedLabel",
+            "InputColumnName": "PredictedLabel"
+          },
+          "e2": {
+            "InputColumnName": "Cidade",
+            "OutputColumnName": "Cidade"
+          },
+          "e3": {
+            "InputColumnNames": [
+              "Idade",
+              "NumeroConsultas",
+              "Internacoes",
+              "EstadoCivil",
+              "Cidade"
+            ],
+            "OutputColumnName": "Features"
+          },
+          "e4": {
+            "OutputColumnName": "Plano",
+            "InputColumnName": "Plano",
+            "AddKeyValueAnnotationsAsText": false
+          },
+          "e5": {
+            "NumberOfLeaves": 4,
+            "MinimumExampleCountPerLeaf": 20,
+            "NumberOfTrees": 6,
+            "MaximumBinCountPerFeature": 289,
+            "FeatureFraction": 0.96875142934855318,
+            "LearningRate": 0.0378380723734626,
+            "LabelColumnName": "Plano",
+            "FeatureColumnName": "Features",
+            "DiskTranspose": false
+          }
+        }
+      }
+    ],
+    "Estimators": {
+      "e0": "ReplaceMissingValues",
+      "e1": "FeaturizeText",
+      "e2": "FeaturizeText",
+      "e3": "Concatenate",
+      "e4": "MapValueToKey",
+      "e5": "FastTreeOva",
+      "e6": "FastForestOva",
+      "e7": "LightGbmMulti",
+      "e8": "LbfgsLogisticRegressionOva",
+      "e9": "LbfgsMaximumEntropyMulti",
+      "e10": "SdcaMaximumEntropyMulti",
+      "e11": "SdcaLogisticRegressionOva",
+      "e12": "MapKeyToValue"
+    },
+    "Schema": "e0 * e1 * e2 * e3 * e4 * (e5 + e6 + e7 + e8 + e9 + e10 + e11) * e12",
+    "MetricName": "MacroAccuracy",
+    "ModelFilePath": "D:\\Sprint4\\Sprint4\\MLModel.mlnet"
+  },
+  "Type": "TrainingConfig",
+  "Version": 5,
+  "TrainingOption": {
+    "Version": 2,
+    "Subsampling": false,
+    "Type": "ClassificationTrainingOption",
+    "TrainingTime": 30,
+    "LabelColumn": "Plano",
+    "ValidationOption": {
+      "Version": 0,
+      "Type": "CrossValidationValidationOption",
+      "NumberOfFolds": 5
+    }
+  }
+}

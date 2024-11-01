@@ -55,7 +55,7 @@ namespace Sprint4
                     IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretKey))
                 };
             });
-            builder.Services.AddSingleton<PredictionService>();
+        
             builder.Services.AddSingleton<StripeService>();
 
             builder.Services.AddControllers();

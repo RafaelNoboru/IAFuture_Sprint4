@@ -14,4 +14,8 @@
     <PackageReference Include="Oracle.EntityFrameworkCore" Version="8.23.60" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\MLModel_ConsoleApp\MLModel_ConsoleApp.csproj" />
+  </ItemGroup>
+
 </Project>
